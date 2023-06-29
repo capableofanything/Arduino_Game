@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     private int currentHP;
     Rigidbody rb;
     Vector3 dir;
-    float speed = 0.1f;
+    float speed = 0.5f;
     Vector3 pos_Start = new Vector3(0.0f,0.5f,0.0f);
     Vector3 oldRot;
 
@@ -93,6 +93,7 @@ public class Player : MonoBehaviour
             {
                 currentHP--;
                 Debug.Log("currentHP =" + currentHP);
+                Managers.Bluetooth.Clear();
                 transform.position = pos_Start;
                 transform.rotation = Quaternion.identity;
             }
