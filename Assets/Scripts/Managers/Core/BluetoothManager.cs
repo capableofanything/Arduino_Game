@@ -13,12 +13,14 @@ public class BluetoothManager
     BluetoothHelper bluetoothHelper;
 
     private bool onConnected = false;
+    private bool connectedFailed = false;
 	private string deviceName;
     private string[] presentdata;
     private string received_message;
     private Vector3 rot = Vector3.zero;
 
     public bool GetOnConnected() { return onConnected; }
+    public bool GetConnectedFailed() { return connectedFailed; }
 	public Vector3 GetData() { return rot; }
 	public float GetX() { return rot.x; }
 	public float GetY() { return rot.y; }
@@ -26,6 +28,7 @@ public class BluetoothManager
     public void Connect()
     {
         Init();
+        connectedFailed = false;
         if (bluetoothHelper.isDevicePaired())
         {
             Debug.Log("try to connect");
@@ -60,7 +63,7 @@ public class BluetoothManager
     }
     private void Init()
     {
-        deviceName = "HC-06";
+        deviceName = "HC-07";
 
         try
         {
@@ -90,6 +93,7 @@ public class BluetoothManager
 			bluetoothHelper.StartListening ();
 			Debug.Log ("Connected");
             onConnected = true;
+            connectedFailed = false;
         } 
 		catch (Exception ex) 
 		{
@@ -100,5 +104,6 @@ public class BluetoothManager
 	private void OnConnectionFailed () 
 	{
 		Debug.Log ("Connection Failed");
+        connectedFailed= true;
 	}
 }

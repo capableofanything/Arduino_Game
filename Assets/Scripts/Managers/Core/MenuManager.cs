@@ -5,8 +5,10 @@ using UnityEngine;
 public class MenuManager
 {
     GameObject pauseMenu;
+    GameObject Menu;
 
-
+    public void SetMenu(GameObject menu) { Menu = menu; }
+    public GameObject GetMenu() { return Menu; }
     bool isPause = false;
     public bool IsPause { get { return isPause; }  private set { isPause = value; } }
 

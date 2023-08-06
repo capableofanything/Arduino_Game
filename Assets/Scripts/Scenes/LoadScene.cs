@@ -14,6 +14,7 @@ public class LoadScene : BaseScene
         SoundBgmPlay();
         SpawnButton();
     }
+
     private void SpawnButton()
     {
         GameObject go = Managers.Resource.Instantiate("UI/Start");

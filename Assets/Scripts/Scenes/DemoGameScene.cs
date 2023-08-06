@@ -20,6 +20,7 @@ public class DemoGameScene : BaseScene//At the beginning of the this scene, resp
     private void SpawnField()
     {
         GameObject go = Managers.Resource.Instantiate("Fields/Fields");
+        Managers.Resource.Instantiate("Fields/Wall");
         if(go != null) 
         {
             Managers.Field.SetField(go.GetComponent<Field>());

@@ -14,6 +14,6 @@ public class GameManagerEx
     public bool GetFinishShow() { return pattern.GetFinishShow(); }
     public Pattern GetPattern() { return pattern; }
     public List<PatternInfo> GetPatternsList() { return pattern.GetPatterns(); }
-    public bool GetStart() { return check.GetStart(); }
+    //public bool GetStart() { return check.GetStart(); }
 }
 
