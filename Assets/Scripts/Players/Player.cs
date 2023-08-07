@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     private int currentHP;
     Rigidbody rb;
     Vector3 dir;
-    float speed = 15.0f;
+    float speed = 10.0f;
     float wait_run_ratio = 0;
     Vector3 currentPos;
     float DamagedTime = 0;
@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
         dir = Vector3.zero;
 
         StartCoroutine(IeRotation());
+        StartCoroutine(CheckPosition());
     }
 
     private void Update()
@@ -95,6 +96,33 @@ public class Player : MonoBehaviour
             }
 
             currentPos = rb.position;
+        }
+    }
+    IEnumerator CheckPosition()
+    {
+        while (true)
+        {
+            yield return null;
+            if (transform.position.y < -1f)
+            {
+                transform.position = new Vector3(0,0,0);
+            }
+            if (currentPos.z >= 17.0f)
+            {
+                rb.position = new Vector3(currentPos.x, currentPos.y, 17.0f);
+            }
+            if (currentPos.z <= -17.0f)
+            {
+                rb.position = new Vector3(currentPos.x, currentPos.y, -17.0f);
+            }
+            if (currentPos.x >= 17.0f)
+            {
+                rb.position = new Vector3(17.0f, currentPos.y, currentPos.z);
+            }
+            if (currentPos.x <= -17.0f)
+            {
+                rb.position = new Vector3(-17.0f, currentPos.y, currentPos.z);
+            }
         }
     }
     private void OnCollisionEnter(Collision col)
