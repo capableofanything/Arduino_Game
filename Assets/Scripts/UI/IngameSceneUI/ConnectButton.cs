@@ -15,6 +15,7 @@ public class ConnectButton : MonoBehaviour
         {
             GameObject go = Managers.Resource.Instantiate("Managers/CheckingGame");
             Managers.Game.SetCheck(go.GetComponent<CheckingGame>());
+            CheckingGame.ChangeLevel(Managers.Level.GetCurrentLevel());
             Managers.Resource.Destroy(gameObject);
         }
     }

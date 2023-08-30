@@ -12,7 +12,7 @@ public class GameLoadingBar : MonoBehaviour
     float time = 0f;
 
     void Start()
-    {
+    { 
         slider = GetComponent<Slider>();
     }
 

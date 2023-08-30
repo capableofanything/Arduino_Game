@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b3dfcc709e41f84eaee4d2f91eefabb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundBgmName: 
+  soundBgmName: allthat
 --- !u!1 &245256849
 GameObject:
   m_ObjectHideFlags: 0

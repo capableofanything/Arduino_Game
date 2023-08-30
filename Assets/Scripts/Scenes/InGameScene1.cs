@@ -13,7 +13,6 @@ public class InGameScene1 : BaseScene
     void Start()
     {
         //Managers.Bluetooth.Clear();
-
         base.Init();
         SoundBgmPlay();
         SpawnBackground();

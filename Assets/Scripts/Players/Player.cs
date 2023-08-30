@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     Vector3 currentPos;
     float DamagedTime = 0;
     Animator anim;
-
+    bool instantiateDiedPrefab = true;
     public int GetCurrentHP()
     {
         return currentHP;
@@ -27,7 +27,11 @@ public class Player : MonoBehaviour
     }
     public void DamageCurrentHP()
     {
-        currentHP--;
+        currentHP--; 
+    }
+    public void ChangeSpeed(float sp)
+    {
+        speed = sp;
     }
     private void Awake()
     {
@@ -58,8 +62,24 @@ public class Player : MonoBehaviour
             Managers.Player.SetAlive(false);
             Managers.Bluetooth.Clear();
             Managers.Bluetooth.DisConnect();
-            Managers.Scene.LoadScene("HomeScene");
+            if (instantiateDiedPrefab) 
+            { 
+                Managers.Resource.Instantiate("Background/Died");
+                instantiateDiedPrefab = false;
+            }
         }
+        //test용
+        if (Input.GetKey(KeyCode.W))
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.A))
+            transform.Translate(Vector3.left * speed * Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.S))
+            transform.Translate(Vector3.down * speed * Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.D))
+            transform.Translate(Vector3.right * speed * Time.deltaTime);
     }
     IEnumerator DamagedTimeWait()//맞았다면 1초 있다 데미지 들어옴
     {
@@ -129,9 +149,11 @@ public class Player : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Damage")&&DamagedTime==0.0f)
         {
-            currentHP--;
-            anim.Play("DAMAGED");
             DamagedTime = 1.0f;
+            anim.SetTrigger("Damage");
+            anim.Play("DAMAGED");
+            currentHP--;
+            //DamagedTime = 1.0f;
         }
         if (currentPos.z >= 17.0f)
         {

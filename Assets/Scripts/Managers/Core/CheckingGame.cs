@@ -8,14 +8,14 @@ public class CheckingGame : MonoBehaviour
 
     private bool bombFinished = false;
     private bool showFinished = false;
-    //private IEnumerator coroutine2;
-    //private bool start;
-    //private bool nextStage;
-    //private bool disappearFunc;
+
+    private static int level=1;
 
     public GameObject Count;
 
-    public void OnCount()
+
+    public static void ChangeLevel(int lv) { level = lv; }
+    private void OnCount()
     {
         Count.SetActive(true);
     }
@@ -24,7 +24,7 @@ public class CheckingGame : MonoBehaviour
         GameObject go = Managers.Menu.GetMenu();
         Count = Managers.Resource.Instantiate("UI/Counter", go.transform);
 
-        coroutine = Convolution();
+        coroutine = Convolution(level);
         StartCoroutine(coroutine);
 
     }
@@ -34,522 +34,43 @@ public class CheckingGame : MonoBehaviour
 
         yield return null;
     }
-    private IEnumerator Convolution()
+
+    private IEnumerator Convolution(int level)
     {
-        {//1
+        for (int iteration = 1; iteration <= (level+4); iteration++)
+        {
             OnCount();
-
-            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);//카운트 다운 끝나면 다음 실행
+            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);
             Count.GetComponent<Count>().finishedCount = false;
 
-            {//show
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Left_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
+            for (int patternIndex = 0; patternIndex < iteration; patternIndex++)
+            {
+                StartCoroutine(Pattern_To_Show(Patterns.Get_Index_By_Order(patternIndex)));
+                yield return new WaitUntil(() => showFinished);
             }
 
             OnCount();
-
-            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);//카운트 다운 끝나면 다음 실행
+            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);
             Count.GetComponent<Count>().finishedCount = false;
 
-            {//bomb
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Left_Half_Idx()));
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-            }
-        }
-
-        {//2
-            OnCount();
-
-            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);//카운트 다운 끝나면 다음 실행
-            Count.GetComponent<Count>().finishedCount = false;
-
-            {//show
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Left_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Right_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-            }
-
-            OnCount();
-
-            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);//카운트 다운 끝나면 다음 실행
-            Count.GetComponent<Count>().finishedCount = false;
-
-            {//bomb
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Left_Idx()));//1번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Right_Idx()));//2번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
+            for (int patternIndex = 0; patternIndex < iteration; patternIndex++)
+            {
+                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Index_By_Order(patternIndex)));
+                yield return new WaitUntil(() => bombFinished);
             }
         }
 
-        {//3
-            OnCount();
-
-            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);//카운트 다운 끝나면 다음 실행
-            Count.GetComponent<Count>().finishedCount = false;
-
-            {//show
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Left_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Right_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Bottom_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-            }
-
-            OnCount();
-
-            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);//카운트 다운 끝나면 다음 실행
-            Count.GetComponent<Count>().finishedCount = false;
-
-            {//bomb
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Left_Idx()));//1번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Right_Idx()));//2번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Bottom_Idx()));//3번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-            }
-        }
-
-        {//4
-            OnCount();
-
-            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);//카운트 다운 끝나면 다음 실행
-            Count.GetComponent<Count>().finishedCount = false;
-
-            {//show
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Left_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Right_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Bottom_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Left_Half_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-            }
-
-            OnCount();
-
-            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);//카운트 다운 끝나면 다음 실행
-            Count.GetComponent<Count>().finishedCount = false;
-
-            {//bomb
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Left_Idx()));//1번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Right_Idx()));//2번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Bottom_Idx()));//3번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Left_Half_Idx()));//4번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-            }
-        }
-
-        {//5
-            OnCount();
-
-            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);//카운트 다운 끝나면 다음 실행
-            Count.GetComponent<Count>().finishedCount = false;
-
-            {//show
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Left_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Right_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Bottom_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Left_Half_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Right_Half_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-            }
-
-            OnCount();
-
-            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);//카운트 다운 끝나면 다음 실행
-            Count.GetComponent<Count>().finishedCount = false;
-
-            {//bomb
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Left_Idx()));//1번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Right_Idx()));//2번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Bottom_Idx()));//3번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Left_Half_Idx()));//4번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Right_Half_Idx()));//5번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-            }
-        }
-
-        {//6
-            OnCount();
-
-            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);//카운트 다운 끝나면 다음 실행
-            Count.GetComponent<Count>().finishedCount = false;
-
-            {//show
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Left_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Right_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Bottom_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Left_Half_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Right_Half_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Middle_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-            }
-
-            OnCount();
-
-            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);//카운트 다운 끝나면 다음 실행
-            Count.GetComponent<Count>().finishedCount = false;
-
-            {//bomb
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Left_Idx()));//1번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Right_Idx()));//2번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Bottom_Idx()));//3번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Left_Half_Idx()));//4번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Right_Half_Idx()));//5번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Middle_Idx()));//6번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-            }
-        }
-
-        {//7
-            OnCount();
-
-            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);//카운트 다운 끝나면 다음 실행
-            Count.GetComponent<Count>().finishedCount = false;
-
-            {//show
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Left_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Right_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Bottom_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Left_Half_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Right_Half_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Middle_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Middle2_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-            }
-
-            OnCount();
-
-            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);//카운트 다운 끝나면 다음 실행
-            Count.GetComponent<Count>().finishedCount = false;
-
-            {//bomb
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Left_Idx()));//1번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Right_Idx()));//2번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Bottom_Idx()));//3번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Left_Half_Idx()));//4번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Right_Half_Idx()));//5번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Middle_Idx()));//6번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Middle2_Idx()));//7번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-            }
-        }
-
-        {//8
-            OnCount();
-
-            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);//카운트 다운 끝나면 다음 실행
-            Count.GetComponent<Count>().finishedCount = false;
-
-            {//show
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Left_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Right_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Bottom_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Left_Half_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Right_Half_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Middle_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Middle2_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Left_Botttom_Arrow()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-            }
-
-            OnCount();
-
-            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);//카운트 다운 끝나면 다음 실행
-            Count.GetComponent<Count>().finishedCount = false;
-
-            {//bomb
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Left_Idx()));//1번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Right_Idx()));//2번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Bottom_Idx()));//3번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Left_Half_Idx()));//4번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Right_Half_Idx()));//5번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Middle_Idx()));//6번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Middle2_Idx()));//7번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Left_Botttom_Arrow()));//8번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-            }
-        }
-
-        {//9
-            OnCount();
-
-            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);//카운트 다운 끝나면 다음 실행
-            Count.GetComponent<Count>().finishedCount = false;
-
-            {//show
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Left_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Right_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Bottom_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Left_Half_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Right_Half_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Middle_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Middle2_Idx()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Left_Botttom_Arrow()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-                StartCoroutine(Pattern_To_Show(Patterns.Get_Right_Botttom_Arrow()));
-
-                yield return new WaitUntil(() => showFinished);//show 후 다음 실행
-
-            }
-
-            OnCount();
-
-            yield return new WaitUntil(() => Count.GetComponent<Count>().finishedCount);//카운트 다운 끝나면 다음 실행
-            Count.GetComponent<Count>().finishedCount = false;
-
-            {//bomb
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Left_Idx()));//1번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Right_Idx()));//2번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Bottom_Idx()));//3번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Left_Half_Idx()));//4번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Right_Half_Idx()));//5번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Middle_Idx()));//6번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Middle2_Idx()));//7번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Left_Botttom_Arrow()));//8번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-                StartCoroutine(Pattern_To_Bomb(Patterns.Get_Right_Botttom_Arrow()));//9번째 패턴
-
-                yield return new WaitUntil(() => bombFinished);//폭탄 터지면 다음 실행
-
-            }
-        }
+        ClearGame();
         yield return null;
     }
 
+    private void ClearGame()
+    {
+        if (Managers.Player.IsAlive())
+        {
+            Managers.Resource.Instantiate("Background/Victory");
+        }
+    }
     private IEnumerator Pattern_To_Show(int[] pattern)
     {
         showFinished = false;
@@ -583,7 +104,7 @@ public class CheckingGame : MonoBehaviour
             Managers.Monster.ActivateBomb(pattern[i]);
         }
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
 
         for (int i = 0; i < pattern.Length; i++)
         {
@@ -594,73 +115,29 @@ public class CheckingGame : MonoBehaviour
 
         bombFinished = true;
     }
-    //void Start()
-    //{
-    //    start = false;
-    //    nextStage = false;
-    //    disappearFunc= false;
-    //    coroutine = Init();
-    //    StartCoroutine(coroutine);
-    //}
 
-    //void Update()
-    //{
-    //    while(nextStage)
-    //    {
-    //        nextStage = false;
-    //        coroutine = Init();
-    //        StartCoroutine(coroutine);
-    //    }
-    //}
-    //public bool GetStart() { return start; }
-
-    //private IEnumerator Init()
-    //{
-    //    start = false;
-    //    disappearFunc= false;
-    //    Managers.Resource.Instantiate("UI/Counter");
-    //    Managers.Game.OnGame();
-    //    yield return new WaitUntil(() => Managers.Game.GetFinishShow());
-    //    Managers.Game.FinishShowFalse();
-    //    Managers.Resource.Instantiate("UI/Counter");
-    //    yield return new WaitForSeconds(3.0f);
-
-    //    start = true;//can move
-    //    //발판 사라지는거 구현
-    //    yield return new WaitUntil(() => start);
-    //    coroutine2 = Disappear_Appear();
-    //    StartCoroutine(coroutine2);
-    //    yield return new WaitUntil(() => disappearFunc);
-    //    nextStage = true;
-    //    yield return new WaitForSeconds(3.0f);
-
-    //}
-    //private IEnumerator Disappear_Appear()
-    //{
-    //    yield return new WaitForSeconds(2.0f);
-
-    //    for (int i = 0; i < Managers.Game.GetPatternsList().Count; i++)
-    //    {
-    //        for (int j = 0; j < Managers.Game.GetPatternsList()[i].patternNum.Count; j++)
-    //        {
-    //            int num = Managers.Game.GetPatternsList()[i].patternNum[j];
-    //            Managers.Field.GetGrid((int)num / 4, (int)num % 4).SetActive(false);
-    //        }
-
-    //        yield return new WaitForSeconds(2.0f);
-
-    //        for (int j = 0; j < Managers.Game.GetPatternsList()[i].patternNum.Count; j++)
-    //        {
-    //            int num = Managers.Game.GetPatternsList()[i].patternNum[j];
-    //            Managers.Field.GetGrid((int)num / 4, (int)num % 4).SetActive(true);
-    //        }
-    //        yield return new WaitForSeconds(2.0f);
-    //    }
-    //    disappearFunc = true;
-    //}
 }
 public class Patterns
 {
+    public static int[] Get_Index_By_Order(int order)
+    {
+        if(order == 0) { return Get_Left_Idx();}
+        else if(order == 1) { return  Get_Right_Idx(); }
+        else if(order == 2) {  return Get_Top_Idx(); }
+        else if(order == 3) {  return Get_Bottom_Idx(); }
+        else if(order == 4) {  return Get_Left_Idx(); }
+        else if(order == 5) {  return Get_Middle_Idx(); }
+        else if (order == 6) { return Get_Middle2_Idx(); }
+        else if (order == 7) { return Get_Left_Half_Idx(); }
+        else if (order == 8) { return Get_Right_Half_Idx(); }
+        else if (order == 9) { return Get_Top_Half_Idx(); }
+        else if (order == 10) { return Get_Bottom_Half_Idx(); }
+        else if (order == 11) { return Get_Left_Botttom_Arrow(); }
+        else if (order == 12) { return Get_Right_Botttom_Arrow(); }
+        else if (order == 13) { return Get_Left_Top_Arrow(); }
+        else if (order == 14) { return Get_Right_Top_Arrow(); }
+        return null;
+    }
     public static int[] Get_Right_Idx()
     {
         int[] result = { 4,9,14,19,24 };

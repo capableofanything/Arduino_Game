@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 28981822}
   - component: {fileID: 28981821}
   - component: {fileID: 28981820}
+  - component: {fileID: 28981823}
   m_Layer: 5
   m_Name: Btn_CircleRed
   m_TagString: Untagged
@@ -206,7 +207,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 28981821}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 28981823}
+        m_TargetAssemblyTypeName: SettingBtn, Assembly-CSharp
+        m_MethodName: Onclicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &28981821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +258,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 28981818}
   m_CullTransparentMesh: 0
+--- !u!114 &28981823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28981818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dfd458aaa8f6534db2967552c2bf192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &211665324
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,7 +655,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: SCI-FI GAME GUI
+  m_Text: Under the Bomb
 --- !u!222 &578153796
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1792,6 +1817,7 @@ GameObject:
   - component: {fileID: 1636823319}
   - component: {fileID: 1636823318}
   - component: {fileID: 1636823317}
+  - component: {fileID: 1636823320}
   m_Layer: 5
   m_Name: Btn_QuitGame
   m_TagString: Untagged
@@ -1863,7 +1889,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1636823318}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1636823320}
+        m_TargetAssemblyTypeName: QuitGameBtn, Assembly-CSharp
+        m_MethodName: Onclicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1636823318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1902,6 +1940,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1636823315}
   m_CullTransparentMesh: 0
+--- !u!114 &1636823320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636823315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45fd4778143816b409245b0ac614508d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1656862090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2967,7 +3017,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1647119817964161760}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1647119817964161776}
+        m_TargetAssemblyTypeName: MapSelectBtn, Assembly-CSharp
+        m_MethodName: OnClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1647119817964161763
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3009,6 +3071,7 @@ GameObject:
   - component: {fileID: 1647119817964161763}
   - component: {fileID: 1647119817964161760}
   - component: {fileID: 1647119817964161761}
+  - component: {fileID: 1647119817964161776}
   m_Layer: 5
   m_Name: Btn_MainMenuBlue
   m_TagString: Untagged
@@ -3016,6 +3079,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1647119817964161776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647119817964161775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99b474c4be100764f805d7b961cb11bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &2072367909788292371
 RectTransform:
   m_ObjectHideFlags: 0

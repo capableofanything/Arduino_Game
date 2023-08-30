@@ -19,7 +19,7 @@ public class PlayerLife : MonoBehaviour
     void Update()
     {
         life = Managers.Player.GetCurrentHP();
-        if (life != Life.Length)
+        if (life != Life.Length&&life>=0)
         {
             Life[life].SetActive(false);
         }

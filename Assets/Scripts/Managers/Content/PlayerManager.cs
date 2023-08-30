@@ -14,4 +14,5 @@ public class PlayerManager
     public void DamageCurrentHP() { this.currentPlayer.DamageCurrentHP(); }
     public bool IsAlive() { return alive; }
     public void SetAlive(bool alive) { this.alive = alive; }
+    public void ChangeSpeed(float sp) { this.ChangeSpeed(sp); }
 }

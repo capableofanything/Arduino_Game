@@ -24,6 +24,7 @@ public class Managers : MonoBehaviour       //@Managers(GameObject)¿¡ »ğÀÔµÊ(½ÃÀ
     ResourceManager _resource = new ResourceManager();
     SceneManagerEx _scene = new SceneManagerEx();
     SoundManager _sound = new SoundManager();
+    LevelManager _level = new LevelManager();
 
     public static BluetoothManager Bluetooth { get { return Instance._bluetooth; } }
     public static MenuManager Menu { get { return Instance._menu; } }
@@ -31,7 +32,7 @@ public class Managers : MonoBehaviour       //@Managers(GameObject)¿¡ »ğÀÔµÊ(½ÃÀ
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }
     public static SoundManager Sound { get { return Instance._sound; } }
-    
+    public static LevelManager Level { get { return Instance._level; } }
     #endregion
 
     void Start()

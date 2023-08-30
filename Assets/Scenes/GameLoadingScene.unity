@@ -618,7 +618,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: SCI-FI GAME GUI
+  m_Text: "#\uB450\uB1CC\uACFC\uD559"
 --- !u!1 &7574178382131532887
 GameObject:
   m_ObjectHideFlags: 0
