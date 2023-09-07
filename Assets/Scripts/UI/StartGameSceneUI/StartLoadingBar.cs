@@ -13,7 +13,6 @@ public class StartLoadingBar : MonoBehaviour
 
     void Start()
     {
-
         slider = GetComponent<Slider>();
     }
 

@@ -25,6 +25,12 @@ public class MonsterManager
             show_child_list.Add(this.show.transform.GetChild(i).gameObject);
         }
     }
+    public void Clear_Bomblist()
+    {
+        bomb_child_list.Clear();
+        show_child_list.Clear();
+    }
+
     public void ActivateBomb(int num) { bomb_child_list[num].SetActive(true); }
     public void DeactivateBomb(int num) { bomb_child_list[num].SetActive(false); }
     public void ActivateShow(int num) { show_child_list[num].SetActive(true); }

@@ -12,7 +12,9 @@ public class GameLoadingBar : MonoBehaviour
     float time = 0f;
 
     void Start()
-    { 
+    {
+        Managers.Monster.Clear_Bomblist();
+
         slider = GetComponent<Slider>();
     }
 
